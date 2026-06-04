@@ -9,17 +9,22 @@ export default {
         "./resources/views/**/*.blade.php",
     ],
 
-    // tailwind.config.js
     theme: {
         extend: {
             colors: {
-                "rose-primary": "#C2185B",
-                "rose-dark": "#880E4F",
-                "rose-light": "#FCE4EC",
-                "rose-soft": "#F48FB1",
-                gold: "#F9A825",
-                ink: "#1A1215",
-                mist: "#F9F5F6",
+                burgundy: "#7A003C",
+                "burgundy-dark": "#4A001F",
+                "burgundy-soft": "#B85A7A",
+
+                gold: "#D89A1C",
+                "gold-dark": "#A86F00",
+                "gold-light": "#F3D28A",
+
+                cream: "#FBF8F1",
+                "cream-dark": "#EFE6D8",
+
+                ink: "#1F1518",
+                mist: "#F8F3EF",
             },
             fontFamily: {
                 sans: ["DM Sans", "sans-serif"],
@@ -27,6 +32,5 @@ export default {
             },
         },
     },
-
     plugins: [forms],
 };

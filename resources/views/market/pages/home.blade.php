@@ -6,34 +6,42 @@
 @section('content')
 
 {{-- HERO --}}
-<section class="min-h-screen grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden">
+<section class="relative min-h-screen overflow-hidden bg-cream flex items-center justify-center px-6 py-6">
 
     {{-- BG blobs --}}
-    <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-rose-light/40 blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-gold/10 blur-3xl pointer-events-none"></div>
+    <div class="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-gold/20 blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -left-32 w-[380px] h-[380px] rounded-full bg-burgundy/10 blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 w-[520px] h-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/50 blur-3xl pointer-events-none"></div>
 
-    {{-- LEFT --}}
-    <div class="flex flex-col justify-center px-8 lg:px-20 py-32 lg:py-0 relative z-10">
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
 
-        <div class="inline-flex items-center gap-2 bg-rose-light text-rose-primary px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider w-fit mb-8">
-            ✦ Disponible à Casa, Rabat & Marrakech
+        {{-- Badge --}}
+        <div class="inline-flex items-center gap-2 bg-white/70 backdrop-blur border border-gold/30 text-burgundy px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-8 shadow-sm">
+            ✦ Disponible à Marrakech & Casa
         </div>
 
-        <h1 class="font-display text-5xl lg:text-7xl font-semibold leading-tight mb-6">
-            Ton coiffeur,<br>
-            <em class="text-rose-primary not-italic">chez toi.</em>
+        {{-- Title --}}
+        <h1 class="font-display text-3xl sm:text-6xl lg:text-7xl font-semibold leading-[0.95] text-burgundy mb-6">
+            Ton coiffeur,
+            <span class="block text-gold">chez toi.</span>
         </h1>
 
-        <p class="text-lg text-gray-500 font-light max-w-md mb-10 leading-relaxed">
-            Des coiffeurs professionnels vérifiés se déplacent chez vous. Réservez en 2 minutes, payez en cash.
+        {{-- Text --}}
+        <p class="text-base sm:text-lg lg:text-xl text-ink/60 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+            Des coiffeurs professionnels vérifiés.
+            Réservez en 2 minutes, payez en cash.
         </p>
 
         {{-- SEARCH BOX --}}
-        <form action="{{ route('coiffeuses.index') }}" method="GET">
-            <div class="bg-white rounded-2xl shadow-xl shadow-rose-primary/10 p-2 flex flex-wrap gap-2 max-w-xl">
-                <div class="flex-1 min-w-[120px] flex flex-col px-4 py-2">
-                    <label class="text-[10px] font-semibold text-rose-primary uppercase tracking-widest mb-1">Service</label>
-                    <select name="service" class="border-none outline-none text-sm font-medium bg-transparent text-ink">
+        <form action="{{ route('coiffeuses.index') }}" method="GET" class="max-w-3xl mx-auto">
+            <div class="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-burgundy/10 p-3 flex flex-col md:flex-row gap-3 border border-gold/20">
+
+                <div class="flex-1 flex flex-col text-left px-4 py-2 rounded-2xl bg-cream/60">
+                    <label class="text-[10px] font-semibold text-gold uppercase tracking-widest mb-1">
+                        Service
+                    </label>
+
+                    <select name="service" class="border-none outline-none text-sm font-medium bg-transparent text-ink focus:ring-0 p-0">
                         <option value="">Tous services</option>
                         <option value="coupe">Coupe</option>
                         <option value="coloration">Coloration</option>
@@ -42,18 +50,22 @@
                         <option value="soin">Soin</option>
                     </select>
                 </div>
-                <div class="w-px bg-gray-100 my-2"></div>
-                <div class="flex-1 min-w-[120px] flex flex-col px-4 py-2">
-                    <label class="text-[10px] font-semibold text-rose-primary uppercase tracking-widest mb-1">Ville</label>
-                    <select name="city" class="border-none outline-none text-sm font-medium bg-transparent text-ink">
+
+                <div class="flex-1 flex flex-col text-left px-4 py-2 rounded-2xl bg-cream/60">
+                    <label class="text-[10px] font-semibold text-gold uppercase tracking-widest mb-1">
+                        Ville
+                    </label>
+
+                    <select name="city" class="border-none outline-none text-sm font-medium bg-transparent text-ink focus:ring-0 p-0">
                         <option value="">Toutes villes</option>
                         @foreach($cities as $city)
                         <option value="{{ $city }}">{{ $city }}</option>
                         @endforeach
                     </select>
                 </div>
+
                 <button type="submit"
-                    class="bg-rose-primary text-white rounded-xl px-6 py-3 text-sm font-semibold flex items-center gap-2 hover:bg-rose-dark transition">
+                    class="bg-burgundy text-cream rounded-2xl px-7 py-2 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-burgundy-dark transition shadow-lg shadow-burgundy/20">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.35-4.35" />
@@ -64,39 +76,48 @@
         </form>
 
         {{-- STATS --}}
-        <div class="flex gap-8 mt-10">
-            <div>
-                <div class="font-display text-3xl font-semibold text-rose-primary">{{ $stats['coiffeures'] }}+</div>
-                <div class="text-xs text-gray-400 mt-1">Coiffeurs vérifiés</div>
+        <div class="mt-12 grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+            <div class="rounded-2xl bg-white/60 border border-gold/20 px-4 py-5 shadow-sm">
+                <div class="font-display text-3xl sm:text-4xl font-semibold text-burgundy">
+                    {{ $stats['coiffeures'] }}+
+                </div>
+                <div class="text-[11px] sm:text-xs text-ink/45 mt-1">
+                    Coiffeurs vérifiés
+                </div>
             </div>
-            <div>
-                <div class="font-display text-3xl font-semibold text-rose-primary">{{ $stats['bookings'] }}+</div>
-                <div class="text-xs text-gray-400 mt-1">Réservations</div>
-            </div>
-            <div>
-                <div class="font-display text-3xl font-semibold text-rose-primary">{{ $stats['cities'] }}</div>
-                <div class="text-xs text-gray-400 mt-1">Villes</div>
-            </div>
-        </div>
-    </div>
 
-    {{-- RIGHT --}}
-    <div class="hidden lg:flex items-center justify-center relative p-20">
-        <div class="w-80 h-[500px] rounded-[120px] bg-gradient-to-br from-rose-light to-white flex items-center justify-center text-[120px] opacity-80">
-            💇
+            <div class="rounded-2xl bg-white/60 border border-gold/20 px-4 py-5 shadow-sm">
+                <div class="font-display text-3xl sm:text-4xl font-semibold text-burgundy">
+                    {{ $stats['bookings'] }}+
+                </div>
+                <div class="text-[11px] sm:text-xs text-ink/45 mt-1">
+                    Réservations
+                </div>
+            </div>
+
+            <div class="rounded-2xl bg-white/60 border border-gold/20 px-4 py-5 shadow-sm">
+                <div class="font-display text-3xl sm:text-4xl font-semibold text-burgundy">
+                    {{ $stats['cities'] }}
+                </div>
+                <div class="text-[11px] sm:text-xs text-ink/45 mt-1">
+                    Villes
+                </div>
+            </div>
         </div>
+
     </div>
 </section>
 
 {{-- HOW IT WORKS --}}
-<section id="how-it-works" class="py-32 px-8 lg:px-20">
+<section id="how-it-works" class="py-20 px-8 lg:px-20 bg-white">
     <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-4 mb-4">
-            <span class="text-xs font-semibold tracking-widest uppercase text-rose-primary">Comment ça marche</span>
-            <div class="flex-1 h-px bg-rose-light"></div>
+            <span class="text-xs font-semibold tracking-widest uppercase text-gold">Comment ça marche</span>
+            <div class="flex-1 h-px bg-gold/30"></div>
         </div>
-        <h2 class="font-display text-4xl lg:text-5xl font-semibold mb-16 max-w-sm">
-            Simple comme <em class="text-rose-primary">bonjour</em>
+
+        <h2 class="font-display text-4xl lg:text-5xl font-semibold mb-16 max-w-sm text-burgundy">
+            Simple comme <em class="text-gold not-italic">bonjour</em>
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -105,13 +126,15 @@
             ['icon' => '📅', 'num' => '02', 'title' => 'Réservez', 'text' => 'Choisissez votre coiffeur, sélectionnez un créneau et confirmez en 2 clics.'],
             ['icon' => '✨', 'num' => '03', 'title' => 'Profitez', 'text' => 'Le coiffeur vient chez vous. Payez en cash sur place. Laissez un avis.'],
             ] as $step)
-            <div class="bg-white rounded-3xl p-10 relative overflow-hidden border border-rose-primary/8 hover:-translate-y-2 transition-transform duration-300">
-                <div class="absolute top-4 right-6 font-display text-8xl font-semibold text-rose-light/60 leading-none">{{ $step['num'] }}</div>
-                <div class="w-14 h-14 rounded-2xl bg-rose-light flex items-center justify-center text-2xl mb-6 relative z-10">
+            <div class="bg-cream rounded-3xl p-10 relative overflow-hidden border border-gold/20 hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl hover:shadow-burgundy/10">
+                <div class="absolute top-4 right-6 font-display text-8xl font-semibold text-gold/20 leading-none">{{ $step['num'] }}</div>
+
+                <div class="w-14 h-14 rounded-2xl bg-gold/15 text-burgundy flex items-center justify-center text-2xl mb-6 relative z-10 border border-gold/20">
                     {{ $step['icon'] }}
                 </div>
-                <h3 class="text-xl font-semibold mb-3 relative z-10">{{ $step['title'] }}</h3>
-                <p class="text-sm text-gray-500 leading-relaxed relative z-10">{{ $step['text'] }}</p>
+
+                <h3 class="text-xl font-semibold mb-3 relative z-10 text-burgundy">{{ $step['title'] }}</h3>
+                <p class="text-sm text-ink/60 leading-relaxed relative z-10">{{ $step['text'] }}</p>
             </div>
             @endforeach
         </div>
@@ -119,20 +142,22 @@
 </section>
 
 {{-- FEATURED COIFFEURES --}}
-<section class="py-32 px-8 lg:px-20 bg-white">
+<section class="py-20 px-8 lg:px-20 bg-cream">
     <div class="max-w-6xl mx-auto">
         <div class="flex items-end justify-between mb-12">
             <div>
                 <div class="flex items-center gap-4 mb-4">
-                    <span class="text-xs font-semibold tracking-widest uppercase text-rose-primary">Nos talents</span>
-                    <div class="flex-1 h-px bg-rose-light"></div>
+                    <span class="text-xs font-semibold tracking-widest uppercase text-gold">Nos talents</span>
+                    <div class="flex-1 h-px bg-gold/30"></div>
                 </div>
-                <h2 class="font-display text-4xl lg:text-5xl font-semibold">
-                    Coiffeurs <em class="text-rose-primary">populaires</em>
+
+                <h2 class="font-display text-4xl lg:text-5xl font-semibold text-burgundy">
+                    Coiffeurs <em class="text-gold not-italic">populaires</em>
                 </h2>
             </div>
+
             <a href="{{ route('coiffeuses.index') }}"
-                class="text-sm font-semibold text-rose-primary border-b border-rose-primary/30 hover:border-rose-primary transition hidden md:block">
+                class="text-sm font-semibold text-burgundy border-b border-gold/50 hover:text-gold hover:border-gold transition hidden md:block">
                 Voir tous →
             </a>
         </div>
