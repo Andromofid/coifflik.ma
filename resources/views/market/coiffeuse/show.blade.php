@@ -1,86 +1,51 @@
-@extends('layouts.app')
+@extends('market.layouts.app')
 
 @section('title', $coiffeuse->user->name . ' — Coiffeur à domicile ' . $coiffeuse->city . ' | CoiffLik.ma')
 @section('meta_description', 'Réservez ' . $coiffeuse->user->name . ' à domicile à ' . $coiffeuse->city . '. ' . $coiffeuse->total_reviews . ' avis. Depuis ' . $coiffeuse->services->min('price') . ' DH.')
 
 @section('content')
 
-{{-- HERO --}}
-<div class="bg-gradient-to-br from-rose-dark via-rose-primary to-rose-soft relative overflow-hidden">
-    <div class="max-w-6xl mx-auto px-6 py-16 flex flex-col lg:flex-row gap-10 items-start">
 
-        {{-- AVATAR --}}
-        <div class="relative shrink-0">
-            <div class="w-32 h-32 rounded-3xl bg-white/20 backdrop-blur border-2 border-white/30 flex items-center justify-center text-6xl">
-                {{ $coiffeuse->user->avatar ? '' : '💇' }}
-            </div>
-            @if($coiffeuse->is_verified)
-            <div class="absolute -bottom-2 -right-2 bg-white text-green-700 text-[10px] font-bold px-2 py-1 rounded-full shadow">
-                ✓ Vérifié
-            </div>
-            @endif
-        </div>
-
-        {{-- INFO --}}
-        <div class="text-white flex-1">
-            <h1 class="font-display text-4xl lg:text-5xl font-semibold mb-3">
-                {{ $coiffeuse->user->name }}
-            </h1>
-            <div class="flex flex-wrap gap-4 text-sm opacity-85 mb-4">
-                <span>📍 {{ $coiffeuse->city }}</span>
-                <span>⭐ {{ number_format($coiffeuse->rating_avg, 1) }} ({{ $coiffeuse->total_reviews }} avis)</span>
-                <span>🎓 {{ $coiffeuse->years_experience }} ans d'expérience</span>
-            </div>
-            <div class="flex flex-wrap gap-2">
-                @foreach($coiffeuse->services->take(5) as $service)
-                <span class="bg-white/15 backdrop-blur border border-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-full">
-                    {{ $service->name }}
-                </span>
-                @endforeach
-            </div>
-        </div>
-
-        {{-- BOOKING CARD --}}
-        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full lg:w-80 shrink-0">
-            <p class="font-semibold text-base mb-1">Réserver {{ $coiffeuse->user->name }}</p>
-            <div class="flex items-baseline gap-1 mb-5">
-                <span class="text-xs text-gray-400">Depuis</span>
-                <span class="font-display text-3xl font-semibold text-rose-primary">
-                    {{ number_format($coiffeuse->services->min('price'), 0) }}
-                </span>
-                <span class="text-xs text-gray-400">DH</span>
-            </div>
-
-            {{-- DATE PICKER --}}
-            <p class="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-3">Choisir une date</p>
-            <div class="grid grid-cols-5 gap-1.5 mb-5" x-data="{ selected: 0 }">
-                @foreach($availableDays as $i => $day)
-                <button @click="selected = {{ $i }}"
-                    :class="selected === {{ $i }} ? 'border-rose-primary bg-rose-light text-rose-primary' : 'border-gray-200'"
-                    class="border rounded-xl py-2 text-center text-xs transition cursor-pointer">
-                    <span class="font-semibold block">{{ $day['day_name'] }}</span>
-                    <span class="text-gray-400">{{ $day['day_number'] }}</span>
-                </button>
-                @endforeach
-            </div>
-
-            <a href="{{ route('booking.create', $coiffeuse->slug) }}"
-                class="block w-full bg-rose-primary text-white text-center py-4 rounded-xl font-semibold text-sm hover:bg-rose-dark transition mb-3">
-                Réserver ce créneau →
-            </a>
-            <button class="w-full bg-[#25D366] text-white py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#128C7E] transition">
-                💬 Contacter par WhatsApp
-            </button>
-        </div>
-    </div>
-</div>
 
 {{-- BODY --}}
 <div class="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
 
     {{-- LEFT --}}
     <div class="lg:col-span-2 space-y-14">
+        <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col lg:flex-row gap-10 items-start">
 
+            {{-- AVATAR --}}
+            <div class="relative shrink-0">
+                <div class="w-32 h-32 rounded-3xl text-burgundy bg-white/20 backdrop-blur border-2 border-white/30 flex items-center justify-center text-6xl">
+                    {{ $coiffeuse->user->avatar ? '' : '💇' }}
+                </div>
+                @if($coiffeuse->is_verified)
+                <div class="absolute -bottom-2 -right-2 bg-white text-green-700 text-[10px] font-bold px-2 py-1 rounded-full shadow">
+                    ✓ Vérifié
+                </div>
+                @endif
+            </div>
+
+            {{-- INFO --}}
+            <div class="text-burgundy flex-1">
+                <h1 class="font-display  text-4xl lg:text-5xl font-semibold mb-3">
+                    {{ $coiffeuse->user->name }}
+                </h1>
+                <div class="flex flex-wrap gap-4 text-sm opacity-85 mb-4">
+                    <span>📍 {{ $coiffeuse->city }}</span>
+                    <span>⭐ {{ number_format($coiffeuse->rating_avg, 1) }} ({{ $coiffeuse->total_reviews }} avis)</span>
+                    <span>🎓 {{ $coiffeuse->years_experience }} ans d'expérience</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    @foreach($coiffeuse->services->take(5) as $service)
+                    <span class="bg-white/15 backdrop-blur border border-white/20 text-white text-xs font-medium px-3 py-1.5 rounded-full">
+                        {{ $service->name }}
+                    </span>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
         {{-- ABOUT --}}
         <div>
             <h2 class="text-xl font-semibold mb-4">À propos</h2>
@@ -102,7 +67,7 @@
                     </div>
                     <div class="flex items-center gap-4">
                         <span class="font-display text-xl font-semibold text-rose-primary">{{ number_format($service->price, 0) }} DH</span>
-                        <a href="{{ route('booking.create', $coiffeuse->slug) }}?service={{ $service->id }}"
+                        <a href=""
                             class="bg-rose-light text-rose-primary text-xs font-semibold px-4 py-2 rounded-xl hover:bg-rose-primary hover:text-white transition">
                             Réserver
                         </a>
